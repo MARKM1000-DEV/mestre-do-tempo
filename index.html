@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,32 +11,38 @@
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3652/3652191.png">
     <style>
         :root { --primary: #007AFF; --bg: #F2F2F7; --card: #FFFFFF; --text: #1C1C1E; --secondary-text: #8E8E93; --success: #34C759; --error: #FF3B30; --radius: 20px; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: var(--bg); color: var(--text); margin: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; overflow-x: hidden; }
+        
         .app-header { width: 100%; padding: 20px; display: flex; flex-direction: column; align-items: center; position: sticky; top: 0; background: rgba(242, 242, 247, 0.8); backdrop-filter: blur(15px); z-index: 1000; }
         .nav-center { display: flex; overflow-x: auto; background: #E3E3E8; padding: 4px; border-radius: 12px; width: 95%; max-width: 400px; scrollbar-width: none; }
         .nav-center::-webkit-scrollbar { display: none; }
-        .nav-center button { flex: 1; border: none; padding: 8px 12px; font-size: 13px; font-weight: 600; border-radius: 8px; background: transparent; color: var(--secondary-text); cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+        .nav-center button { flex: 1; border: none; padding: 8px 12px; font-size: 13px; font-weight: 600; border-radius: 8px; background: transparent; color: var(--secondary-text); cursor: pointer; transition: 0.2s; white-space: nowrap; }
         .nav-center button.active { background: white; color: var(--text); box-shadow: 0 3px 8px rgba(0,0,0,0.12); }
+        
         main { width: 100%; max-width: 450px; padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
         .game-section { display: none; animation: fadeIn 0.3s ease-out; }
         .game-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
         .card { background: var(--card); border-radius: var(--radius); padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); text-align: center; margin-bottom: 20px; }
         h1 { font-size: 24px; font-weight: 700; margin: 10px 0; }
         .hint { color: var(--secondary-text); font-size: 15px; margin-bottom: 20px; }
+        
         .btn-action { width: 100%; background: var(--text); color: white; border: none; padding: 18px; border-radius: 16px; font-size: 17px; font-weight: 600; cursor: pointer; }
         .grid-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
-        .btn-opt { background: white; border: 2px solid #E5E5EA; padding: 20px 10px; border-radius: 18px; font-size: 16px; font-weight: 600; color: var(--text); transition: 0.2s; }
+        .btn-opt { background: white; border: 2px solid #E5E5EA; padding: 20px 10px; border-radius: 18px; font-size: 16px; font-weight: 600; color: var(--text); transition: 0.2s; cursor: pointer; }
         .btn-opt.correct { background: var(--success); border-color: var(--success); color: white; }
         .btn-opt.error { background: var(--error); border-color: var(--error); color: white; }
+        
         .display-large { font-size: 60px; font-weight: 800; margin: 20px 0; }
         .memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-        .mem-tile { aspect-ratio: 1; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px; cursor: pointer;}
+        .mem-tile { aspect-ratio: 1; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px; cursor: pointer; }
         .mem-tile.open { background: white; color: var(--primary); border: 2px solid var(--primary); }
     </style>
 </head>
 <body>
+
     <header class="app-header">
         <h1>Mestre do Tempo</h1>
         <div class="nav-center">
@@ -60,8 +66,8 @@
 
         <section id="game-seq" class="game-section">
             <div class="card">
-                <p class="hint">Clique na ordem correta (1 a 12)</p>
-                <div id="seq-status" style="font-weight: 800; margin-bottom: 15px;">Ache: Janeiro</div>
+                <p class="hint">Clica na ordem correta (1 a 12)</p>
+                <div id="seq-status" style="font-weight: 800; margin-bottom: 15px; min-height: 60px;">Ache: Janeiro</div>
                 <div id="seq-grid" class="grid-options"></div>
             </div>
         </section>
@@ -77,14 +83,14 @@
         <section id="game-event" class="game-section">
             <div class="card">
                 <p class="hint">Qual o mês deste evento?</p>
-                <div id="ev-name" style="font-size: 32px; margin: 20px 0;">🎄 Natal</div>
+                <div id="ev-name" style="font-size: 28px; margin: 20px 0;">🎄 Natal</div>
                 <div id="ev-opts" class="grid-options"></div>
             </div>
         </section>
 
         <section id="game-memo" class="game-section">
             <div class="card">
-                <p class="hint">Combine Nome e Número</p>
+                <p class="hint">Combina Nome e Número</p>
                 <div id="memo-grid" class="memory-grid"></div>
                 <button class="btn-action" style="background: #8E8E93; margin-top: 20px;" onclick="initMemo()">Reiniciar</button>
             </div>
@@ -93,10 +99,10 @@
 
     <script>
         const DB = [
-            { n: 1, m: "Janeiro", e: "🏖️ Férias" }, { n: 2, m: "Fevereiro", e: "🎭 Carnaval" },
+            { n: 1, m: "Janeiro", e: "🏖️ Ano Novo" }, { n: 2, m: "Fevereiro", e: "🎭 Carnaval" },
             { n: 3, m: "Março", e: "🍂 Outono" }, { n: 4, m: "Abril", e: "🍫 Páscoa" },
             { n: 5, m: "Maio", e: "👩‍👧‍👦 Mães" }, { n: 6, m: "Junho", e: "🔥 Junina" },
-            { n: 7, m: "Julho", e: "❄️ Inverno" }, { n: 8, m: "Agosto", e: "👨‍👦 Pais" },
+            { n: 7, m: "Julho", e: "❄️ Férias" }, { n: 8, m: "Agosto", e: "👨‍👦 Pais" },
             { n: 9, m: "Setembro", e: "💐 Primavera" }, { n: 10, m: "Outubro", e: "🧸 Crianças" },
             { n: 11, m: "Novembro", e: "🇧🇷 República" }, { n: 12, m: "Dezembro", e: "🎄 Natal" }
         ];
@@ -106,10 +112,11 @@
             document.querySelectorAll('.nav-center button').forEach(b => b.classList.remove('active'));
             document.getElementById('game-' + tab).classList.add('active');
             document.getElementById('tab-' + tab).classList.add('active');
-            const fnName = 'init' + tab.charAt(0).toUpperCase() + tab.slice(1);
-            if (typeof window[fnName] === 'function') window[fnName]();
+            const fn = window['init' + tab.charAt(0).toUpperCase() + tab.slice(1)];
+            if (typeof fn === 'function') fn();
         }
 
+        // FLASHCARDS
         let fStep = 0; let curF = {};
         function initFlash() {
             curF = DB[Math.floor(Math.random()*12)];
@@ -121,98 +128,111 @@
             document.getElementById('f-btn').textContent = "Revelar";
             fStep = 0;
         }
-
         function logicFlash() {
-            if(fStep === 0) {
-                document.getElementById('f-a').style.visibility = "visible";
-                document.getElementById('f-btn').textContent = "Próximo";
-                fStep = 1;
-            } else { initFlash(); }
+            if(fStep === 0) { document.getElementById('f-a').style.visibility = "visible"; document.getElementById('f-btn').textContent = "Próximo"; fStep = 1; }
+            else { initFlash(); }
         }
 
+        // ORDEM (CORRIGIDO COM REINICIAR)
         let nNext = 1;
         function initSeq() {
-            nNext = 1; updateSeqUI();
-            const grid = document.getElementById('seq-grid'); grid.innerHTML = '';
-            [...DB].sort(()=>Math.random()-0.5).forEach(m => {
-                const btn = document.createElement('button'); btn.className = 'btn-opt'; btn.textContent = m.m;
+            nNext = 1; 
+            updateSeqUI();
+            const grid = document.getElementById('seq-grid'); 
+            grid.innerHTML = '';
+            [...DB].sort(() => Math.random() - 0.5).forEach(m => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-opt'; btn.textContent = m.m;
                 btn.onclick = () => {
-                    if(m.n === nNext) { btn.classList.add('correct'); btn.disabled = true; nNext++; updateSeqUI(); }
-                    else { btn.classList.add('error'); setTimeout(()=>btn.classList.remove('error'), 400); }
+                    if(m.n === nNext) {
+                        btn.classList.add('correct'); btn.disabled = true;
+                        nNext++; updateSeqUI();
+                    } else {
+                        btn.classList.add('error');
+                        setTimeout(() => btn.classList.remove('error'), 400);
+                    }
                 };
                 grid.appendChild(btn);
             });
         }
-
         function updateSeqUI() {
-            const status = document.getElementById('seq-status');
-            status.textContent = nNext > 12 ? "🎉 Você completou!" : `Ache: ${DB[nNext-1].m}`;
+            const el = document.getElementById('seq-status');
+            if (nNext > 12) {
+                el.innerHTML = `🎉 Parabéns! Completaste o ano!<br><button class="btn-action" style="background:var(--success); margin-top:10px; padding:10px;" onclick="initSeq()">Jogar Novamente</button>`;
+            } else {
+                el.textContent = `Ache: ${DB[nNext-1].m}`;
+            }
         }
 
+        // PERDIDO
         function initLost() {
             const start = Math.floor(Math.random()*9);
             const miss = Math.floor(Math.random()*4);
             const slice = DB.slice(start, start+4);
             const container = document.getElementById('lost-seq'); container.innerHTML = '';
             slice.forEach((m, i) => {
-                const b = document.createElement('div');
-                b.style = "width:50px; height:50px; border-radius:10px; background:#E5E5EA; display:flex; align-items:center; justify-content:center; font-weight:bold;";
-                b.textContent = i === miss ? "?" : m.n;
-                if(i === miss) b.style.border = "2px dashed var(--primary)";
-                container.appendChild(b);
+                const box = document.createElement('div');
+                box.style = "width:50px; height:50px; border-radius:12px; background:#E5E5EA; display:flex; align-items:center; justify-content:center; font-weight:bold;";
+                box.textContent = (i === miss) ? "?" : m.n;
+                if(i === miss) box.style.border = "2px dashed var(--primary)";
+                container.appendChild(box);
             });
             renderOpts('lost-opts', slice[miss].m, initLost);
         }
 
+        // EVENTOS
         function initEvent() {
             const target = DB[Math.floor(Math.random()*12)];
             document.getElementById('ev-name').textContent = target.e;
             renderOpts('ev-opts', target.m, initEvent);
         }
-
-        function renderOpts(containerId, correct, nextFn) {
-            const container = document.getElementById(containerId); container.innerHTML = '';
-            const choices = [correct];
+        function renderOpts(id, correct, nextFn) {
+            const container = document.getElementById(id); container.innerHTML = '';
+            let choices = [correct];
             while(choices.length < 4) {
                 const r = DB[Math.floor(Math.random()*12)].m;
                 if(!choices.includes(r)) choices.push(r);
             }
-            choices.sort(()=>Math.random()-0.5).forEach(o => {
-                const b = document.createElement('button'); b.className = 'btn-opt'; b.textContent = o;
+            choices.sort(() => Math.random() - 0.5).forEach(o => {
+                const b = document.createElement('button');
+                b.className = 'btn-opt'; b.textContent = o;
                 b.onclick = () => {
                     if(o === correct) { b.classList.add('correct'); setTimeout(nextFn, 600); }
-                    else { b.classList.add('error'); setTimeout(()=>b.classList.remove('error'), 400); }
+                    else { b.classList.add('error'); setTimeout(() => b.classList.remove('error'), 400); }
                 };
                 container.appendChild(b);
             });
         }
 
+        // MEMÓRIA
         let flipped = [];
         function initMemo() {
             const grid = document.getElementById('memo-grid'); grid.innerHTML = ''; flipped = [];
-            const sample = [...DB].sort(()=>Math.random()-0.5).slice(0,6);
-            const cards = [];
-            sample.forEach(x => { cards.push({v:x.m, id:x.n}, {v:x.n, id:x.n}); });
-            cards.sort(()=>Math.random()-0.5).forEach(c => {
-                const div = document.createElement('div'); div.className = 'mem-tile'; div.textContent = '?';
-                div.onclick = () => {
-                    if(flipped.length < 2 && !div.classList.contains('open')) {
-                        div.classList.add('open'); div.textContent = c.v; flipped.push({c, div});
+            const sample = [...DB].sort(() => Math.random() - 0.5).slice(0, 6);
+            let cards = [];
+            sample.forEach(x => { cards.push({v: x.m, id: x.n}, {v: x.n, id: x.n}); });
+            cards.sort(() => Math.random() - 0.5).forEach(c => {
+                const tile = document.createElement('div');
+                tile.className = 'mem-tile'; tile.textContent = '?';
+                tile.onclick = () => {
+                    if(flipped.length < 2 && !tile.classList.contains('open')) {
+                        tile.classList.add('open'); tile.textContent = c.v;
+                        flipped.push({c, tile});
                         if(flipped.length === 2) {
                             if(flipped[0].c.id === flipped[1].c.id) {
-                                setTimeout(()=>{ flipped.forEach(f => f.div.style.visibility = 'hidden'); flipped = []; }, 600);
+                                setTimeout(() => { flipped.forEach(f => f.tile.style.visibility = 'hidden'); flipped = []; }, 600);
                             } else {
-                                setTimeout(()=>{ flipped.forEach(f => { f.div.classList.remove('open'); f.div.textContent = '?'; }); flipped = []; }, 800);
+                                setTimeout(() => { flipped.forEach(f => { f.tile.classList.remove('open'); f.tile.textContent = '?'; }); flipped = []; }, 800);
                             }
                         }
                     }
                 };
-                grid.appendChild(div);
+                grid.appendChild(tile);
             });
         }
 
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
+            navigator.serviceWorker.register('./sw.js').catch(e => console.error(e));
         }
 
         initFlash();
